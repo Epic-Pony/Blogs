@@ -4,7 +4,7 @@
  * @Autor: Pony
  * @Date: 2020-08-16 15:21:04
  * @LastEditors: Pony
- * @LastEditTime: 2020-08-16 15:46:08
+ * @LastEditTime: 2020-08-23 22:56:49
  */
 const path = require('path')
 function resolve(dir) {
@@ -25,4 +25,6 @@ module.exports = {
 				.set('@comp', resolve('src/components'))
 				.set('@views', resolve('src/views'))
 	},
+	publicPath:'/pony.github.io'
+	// /pony.github.io/
 }
