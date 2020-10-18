@@ -4,7 +4,7 @@
  * @Autor: Pony
  * @Date: 2020-08-16 15:13:39
  * @LastEditors: Pony
- * @LastEditTime: 2020-08-17 00:45:43
+ * @LastEditTime: 2020-10-18 17:45:46
 -->
 <template>
   <div id="app">
@@ -13,6 +13,22 @@
       <router-view />
     </transition>
     <navBar v-if="isNav" />
+    <div class="music-box">
+      <iframe
+      v-show="isPlayer"
+        frameborder="no"
+        border="0"
+        marginwidth="0"
+        marginheight="0"
+        width="200"
+        height="52"
+        src="//music.163.com/outchain/player?type=2&id=411214148&auto=1&height=32"
+      ></iframe>
+      <div class="bars" @click="closePlayers">
+        <img src="./assets/img/open.png" alt="" />
+      </div>
+      <!-- <img src="" alt="" /> -->
+    </div>
   </div>
 </template>
 <script>
@@ -25,20 +41,26 @@ export default {
   },
   data() {
     return {
-      isNav:true,
+      isPlayer:false,
+      isNav: true,
     };
   },
   mounted() {
     window.onresize = () => {
-      let widowWidth = document.getElementsByClassName('viewBox')[0].offsetWidth
-      if(widowWidth < 1057) {
-        this.isNav = false
-      }else {
-        this.isNav = true
+      let widowWidth = document.getElementsByClassName("viewBox")[0]
+        .offsetWidth;
+      if (widowWidth < 1057) {
+        this.isNav = false;
+      } else {
+        this.isNav = true;
       }
-    }
+    };
   },
-  methods: {},
+  methods: {
+    closePlayers() {
+      this.isPlayer = !this.isPlayer;
+    },
+  },
 };
 </script>
 <style lang="less">
@@ -49,7 +71,7 @@ export default {
 }
 .fadee-enter {
   // opacity: 0;
-   transform: translate(0, 100%);
+  transform: translate(0, 100%);
 }
 .fadee-enter-active {
   transform: translate(0, 100%);
@@ -70,13 +92,14 @@ export default {
   color: #000;
 }
 @font-face {
-  font-family: 'iconfont';  /* project id 1845310 */
-  src: url('//at.alicdn.com/t/font_1845310_o4yhc365ncc.eot');
-  src: url('//at.alicdn.com/t/font_1845310_o4yhc365ncc.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1845310_o4yhc365ncc.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1845310_o4yhc365ncc.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1845310_o4yhc365ncc.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1845310_o4yhc365ncc.svg#iconfont') format('svg');
+  font-family: "iconfont"; /* project id 1845310 */
+  src: url("//at.alicdn.com/t/font_1845310_o4yhc365ncc.eot");
+  src: url("//at.alicdn.com/t/font_1845310_o4yhc365ncc.eot?#iefix")
+      format("embedded-opentype"),
+    url("//at.alicdn.com/t/font_1845310_o4yhc365ncc.woff2") format("woff2"),
+    url("//at.alicdn.com/t/font_1845310_o4yhc365ncc.woff") format("woff"),
+    url("//at.alicdn.com/t/font_1845310_o4yhc365ncc.ttf") format("truetype"),
+    url("//at.alicdn.com/t/font_1845310_o4yhc365ncc.svg#iconfont") format("svg");
 }
 .viewBox {
   position: relative;
@@ -90,5 +113,32 @@ export default {
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
   cursor: pointer;
+}
+.music-box {
+  position: fixed;
+  top: 10px;
+  left: 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  iframe {
+    #player {
+      margin: 0!important;
+    }
+  }
+  .bars {
+    width: 40px;
+    height: 100%;
+    background: #fff;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    text-align: center;
+    img {
+      width: 40px;
+      height: 30px;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+  }
 }
 </style>
